@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import CreateCard from 'CreateCard';
+import { useStores } from 'store';
+import Card from 'Card';
+import { observer } from 'mobx-react-lite';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const { cardsStore } = useStores();
 
-export default App;
+    return (
+        <div>
+            <CreateCard />
+            {cardsStore.cards.map(card => (
+                <Card key={card.id} id={card.id} name={card.name} />
+            ))}
+        </div>
+    );
+};
+
+export default observer(App);
