@@ -1,6 +1,5 @@
 import { useStores } from 'store';
 import { useState } from 'react';
-import { maxCards } from 'consts';
 import { observer } from 'mobx-react-lite';
 
 const CreateCard = () => {
@@ -8,7 +7,7 @@ const CreateCard = () => {
     const { cardsStore } = useStores();
 
     const onAdd = () => {
-        if (cardsStore.cards.length <= maxCards) {
+        if (cardsStore.cards.length <= cardsStore.maxCardsCount) {
             cardsStore.add({ name: cardName });
             setCardName('');
         }

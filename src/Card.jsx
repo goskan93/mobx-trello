@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 
 const Card = ({ id, name }) => {
-    console.log('card', id, name);
     const { tasksStore } = useStores();
     const tasks = tasksStore.tasks.filter(t => t.cardId === id);
     return (
