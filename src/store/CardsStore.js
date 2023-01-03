@@ -1,24 +1,27 @@
-import { action, observable, makeObservable } from 'mobx';
+import { action, observable, makeObservable, flow, flowResult } from 'mobx';
 import { nanoid } from 'nanoid';
+import CardsService from 'services/CardsService';
 
 class CardsStore {
+    cardsService;
     cards = [];
-    fetched = false;
     maxCardsCount = 5;
     constructor() {
         makeObservable(this, {
             cards: observable,
             add: action,
             maxCardsCount: false,
-            fetched: false
+            fetch: flow
         });
+        this.cardsService = new CardsService();
+
+        flowResult(this.fetch());
     }
 
-    get = () => {
-        if (this.fetched) {
-            return this.cards;
-        }
-    };
+    *fetch() {
+        this.cards = yield this.cardsService.get();
+    }
+
     add = card => {
         this.cards.push({ id: nanoid(), ...card });
     };
