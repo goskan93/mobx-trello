@@ -10,7 +10,7 @@ const Card = ({ card }) => {
     return (
         <div
             style={{
-                margin: '20px',
+                margin: '20px 20px 20px 0',
                 padding: '10px',
                 border: '1px solid',
                 borderRadius: '4px'

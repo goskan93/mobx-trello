@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const Layout = ({ children }) => {
     return (
         <Provider theme={defaultTheme}>
-            <header></header>
             <main>{children}</main>
         </Provider>
     );
