@@ -1,5 +1,5 @@
 import data from 'db/cardsDb.json';
-import { sleep } from 'helpers';
+import { sleep } from 'utils/helpers';
 
 class CardsService {
     get = async () => {

@@ -2,6 +2,7 @@ import { useStores } from 'store';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
+import { ActionButton, TextField, Flex } from '@adobe/react-spectrum';
 
 const CreateTask = ({ cardId }) => {
     const [taskName, setTaskName] = useState('');
@@ -9,17 +10,24 @@ const CreateTask = ({ cardId }) => {
 
     const onAdd = () => {
         tasksStore.add({ name: taskName, cardId });
-        setTaskName('');
+        //setTaskName('');
     };
 
     return (
-        <>
-            <input
-                onChange={e => setTaskName(e.target.value)}
+        <Flex
+            direction={'row'}
+            alignItems={'end'}
+            justifySelf={'center'}
+            gap={'size-75'}
+        >
+            <TextField
+                onChange={setTaskName}
                 value={taskName}
+                label='Add task'
+                isRequired
             />
-            <button onClick={onAdd}>Add</button>
-        </>
+            <ActionButton onPress={onAdd}>Add</ActionButton>
+        </Flex>
     );
 };
 

@@ -1,7 +1,7 @@
 import { action, observable, makeObservable, runInAction } from 'mobx';
 import { nanoid } from 'nanoid';
 import data from 'db/tasksDb.json';
-import { sleep } from 'helpers';
+import { sleep } from 'utils/helpers';
 
 class TasksStore {
     tasks = [];

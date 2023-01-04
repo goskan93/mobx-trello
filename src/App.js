@@ -1,19 +1,15 @@
-import './App.css';
-import CreateCard from 'CreateCard';
-import { useStores } from 'store';
-import Card from 'Card';
+import 'Layout.css';
+import CreateCard from 'components/Cards/CreateCard';
 import { observer } from 'mobx-react-lite';
+import CardList from 'components/Cards/CardList';
+import Layout from 'components/Layout';
 
 const App = () => {
-    const { cardsStore } = useStores();
-
     return (
-        <div>
+        <Layout>
             <CreateCard />
-            {cardsStore.cards.map(card => (
-                <Card key={card.id} id={card.id} name={card.name} />
-            ))}
-        </div>
+            <CardList />
+        </Layout>
     );
 };
 
