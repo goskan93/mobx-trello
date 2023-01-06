@@ -46,6 +46,7 @@ class TasksStore {
             })
         );
     };
+
     update = task => {
         this.tasksService.patch(task).then(
             runInAction(() => {

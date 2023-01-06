@@ -9,10 +9,11 @@ const Task = ({ task, onDelete }) => {
         getItems: () => {
             return [
                 {
-                    task: JSON.stringify(task)
+                    'move-task': JSON.stringify(task)
                 }
             ];
-        }
+        },
+        getAllowedDropOperations: () => ['move-task']
     });
     return (
         <li

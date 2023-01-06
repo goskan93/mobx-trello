@@ -6,23 +6,20 @@ import { observer } from 'mobx-react-lite';
 
 const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
     let ref = useRef();
-    let { dropProps } = useDrop({
+    let { dropProps, isDropTarget } = useDrop({
         ref,
         onDrop: async e => {
             const draggedTasks = await Promise.all(
                 e.items.map(async item =>
-                    JSON.parse(await item.getText('task'))
+                    JSON.parse(await item.getText('move-task'))
                 )
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
             if (draggedTask.cardId === cardId) {
                 //dont know yet how to reorder inside list
             } else {
-                console.log('got here');
                 onUpdateCard(draggedTask.id, cardId);
-                //change cardId in taks
             }
-            console.log('onDrop', cardId, draggedTasks);
         }
     });
     return (
@@ -36,7 +33,8 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
                 maxHeight: '58vh',
                 minHeight: '58vh',
                 listStyleType: 'none',
-                padding: 0
+                padding: 0,
+                border: isDropTarget ? '1px dashed grey' : ''
             }}
         >
             {tasks.map(t => (
