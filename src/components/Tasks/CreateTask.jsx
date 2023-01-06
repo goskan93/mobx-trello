@@ -10,7 +10,7 @@ const CreateTask = ({ cardId }) => {
 
     const onAdd = () => {
         tasksStore.add({ name: taskName, cardId });
-        //setTaskName('');
+        setTaskName('');
     };
 
     return (

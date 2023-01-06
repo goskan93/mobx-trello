@@ -6,11 +6,11 @@ const CardList = () => {
     const { cardsStore } = useStores();
 
     return (
-        <div className={'board'}>
+        <section aria-label={'board'} className={'board'}>
             {cardsStore.cards.map(card => (
                 <Card key={card.id} card={card} />
             ))}
-        </div>
+        </section>
     );
 };
 
