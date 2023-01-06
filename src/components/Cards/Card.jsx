@@ -20,8 +20,10 @@ const Card = ({ card }) => {
             <p>{name}</p>
             <CreateTask cardId={id} />
             <TaskList
+                cardId={id}
                 tasks={tasks}
                 onDelete={taskId => tasksStore.delete(taskId)}
+                onUpdateCard={(id, cardId) => tasksStore.update({ id, cardId })}
             />
         </section>
     );

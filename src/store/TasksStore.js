@@ -1,4 +1,4 @@
-import { action, observable, makeObservable, runInAction } from 'mobx';
+import { action, observable, makeObservable, runInAction, toJS } from 'mobx';
 import TasksService from 'services/TasksService';
 
 class TasksStore {
@@ -12,7 +12,8 @@ class TasksStore {
                 tasks: observable,
                 add: action,
                 fetch: action,
-                delete: action
+                delete: action,
+                update: action
             },
             {
                 name: 'tasks store'
@@ -42,6 +43,18 @@ class TasksStore {
             runInAction(() => {
                 this.tasks = this.tasks.filter(task => task.id !== taskId);
                 console.log('task deleted', taskId);
+            })
+        );
+    };
+    update = task => {
+        this.tasksService.patch(task).then(
+            runInAction(() => {
+                const oldTask = this.tasks.find(t => t.id === task.id);
+                const newTask = { ...toJS(oldTask), ...task };
+                this.tasks = this.tasks.map(t =>
+                    t.id === newTask.id ? newTask : t
+                );
+                console.log('task changed');
             })
         );
     };

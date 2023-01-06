@@ -18,6 +18,15 @@ class TasksService {
             method: 'DELETE'
         }).then(response => response.json());
     };
+    patch = async task => {
+        return await fetch(`http://localhost:3004/tasks/${task.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        }).then(response => response.json());
+    };
 }
 
 export default TasksService;

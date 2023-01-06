@@ -1,47 +1,46 @@
-import { ActionButton } from '@adobe/react-spectrum';
-import DeleteOutline from '@spectrum-icons/workflow/DeleteOutline';
 import PropTypes from 'prop-types';
-import { useDrag } from 'react-aria';
+import Task from 'components/Tasks/Task';
+import { useDrop } from 'react-aria';
+import { useRef } from 'react';
+import { observer } from 'mobx-react-lite';
 
-let { dragProps } = useDrag({
-    getItems() {
-        return [
-            {
-                'text/plain': 'hello world'
+const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
+    let ref = useRef();
+    let { dropProps } = useDrop({
+        ref,
+        onDrop: async e => {
+            const draggedTasks = await Promise.all(
+                e.items.map(async item =>
+                    JSON.parse(await item.getText('task'))
+                )
+            );
+            const draggedTask = draggedTasks[0]; // supports only dragging one task
+            if (draggedTask.cardId === cardId) {
+                //dont know yet how to reorder inside list
+            } else {
+                console.log('got here');
+                onUpdateCard(draggedTask.id, cardId);
+                //change cardId in taks
             }
-        ];
-    }
-});
-const TaskList = ({ tasks, onDelete }) => {
+            console.log('onDrop', cardId, draggedTasks);
+        }
+    });
     return (
         <ul
-            {...dragProps}
+            tabIndex={0}
+            role={'list'}
+            ref={ref}
+            {...dropProps}
             style={{
                 overflowY: 'auto',
                 maxHeight: '58vh',
+                minHeight: '58vh',
                 listStyleType: 'none',
                 padding: 0
             }}
         >
             {tasks.map(t => (
-                <li
-                    key={t.id}
-                    style={{
-                        margin: '8px 4px',
-                        padding: '4px 12px',
-                        border: '1px solid',
-                        borderRadius: '4px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
-                >
-                    <p>{t.name}</p>
-                    <ActionButton onPress={() => onDelete(t.id)}>
-                        <DeleteOutline aria-label={'delete'} />
-                    </ActionButton>
-                </li>
+                <Task onDelete={onDelete} task={t} key={t.id} />
             ))}
         </ul>
     );
@@ -50,11 +49,13 @@ const TaskList = ({ tasks, onDelete }) => {
 TaskList.propTypes = {
     tasks: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             name: PropTypes.string
         })
     ),
-    onDelete: PropTypes.func
+    onDelete: PropTypes.func,
+    cardId: PropTypes.string,
+    onUpdateCard: PropTypes.func
 };
 
-export default TaskList;
+export default observer(TaskList);
