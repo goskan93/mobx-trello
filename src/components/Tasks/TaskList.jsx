@@ -10,18 +10,22 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
         ref,
         onDrop: async e => {
             const draggedTasks = await Promise.all(
-                e.items.map(async item =>
-                    JSON.parse(await item.getText('move-task'))
-                )
+                e.items
+                    .filter(item => item.types.has('move-task'))
+                    .map(async item =>
+                        JSON.parse(await item.getText('move-task'))
+                    )
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
-            if (draggedTask.cardId === cardId) {
-                //dont know yet how to reorder inside list
-            } else {
+            if (draggedTask.cardId !== cardId) {
+                console.log(
+                    'moving between cards, place no matter, move to bottom'
+                );
                 onUpdateCard(draggedTask.id, cardId);
             }
         }
     });
+
     return (
         <ul
             tabIndex={0}
@@ -30,15 +34,21 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
             {...dropProps}
             style={{
                 overflowY: 'auto',
-                maxHeight: '58vh',
-                minHeight: '58vh',
+                maxHeight: '55vh',
+                minHeight: '55vh',
                 listStyleType: 'none',
-                padding: 0,
+                padding: isDropTarget ? '3px' : '4px',
                 border: isDropTarget ? '1px dashed grey' : ''
             }}
         >
             {tasks.map(t => (
-                <Task onDelete={onDelete} task={t} key={t.id} />
+                <Task
+                    onDelete={() => onDelete(t.id)}
+                    task={t}
+                    key={t.id}
+                    cardId={cardId}
+                    onUpdateCard={onUpdateCard}
+                />
             ))}
         </ul>
     );

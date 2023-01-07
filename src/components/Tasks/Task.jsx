@@ -3,9 +3,9 @@ import DeleteOutline from '@spectrum-icons/workflow/DeleteOutline';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-aria';
 import { observer } from 'mobx-react-lite';
-
-const Task = ({ task, onDelete }) => {
-    const { dragProps } = useDrag({
+import DropIndicator from 'components/DropIndicator';
+const Task = ({ task, onDelete, cardId }) => {
+    const { dragProps, isDragging } = useDrag({
         getItems: () => {
             return [
                 {
@@ -15,25 +15,20 @@ const Task = ({ task, onDelete }) => {
         },
         getAllowedDropOperations: () => ['move-task']
     });
+
     return (
-        <li
-            {...dragProps}
-            style={{
-                margin: '8px 4px',
-                padding: '4px 12px',
-                border: '1px solid',
-                borderRadius: '4px',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-            }}
-        >
-            <p>{task.name}</p>
-            <ActionButton onPress={onDelete}>
-                <DeleteOutline aria-label={'delete'} />
-            </ActionButton>
-        </li>
+        <>
+            <DropIndicator cardId={cardId} beforeTaskId={task.id} />
+            <li
+                {...dragProps}
+                className={`task ${isDragging ? 'dragging' : ''}`}
+            >
+                <p style={{ margin: '0' }}>{task.name}</p>
+                <ActionButton onPress={onDelete}>
+                    <DeleteOutline aria-label={'delete'} />
+                </ActionButton>
+            </li>
+        </>
     );
 };
 
@@ -42,7 +37,8 @@ Task.propTypes = {
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         name: PropTypes.string
     }),
-    onDelete: PropTypes.func
+    onDelete: PropTypes.func,
+    cardId: PropTypes.string
 };
 
 export default observer(Task);

@@ -10,7 +10,8 @@ class CardsStore {
             cards: observable,
             add: flow,
             maxCardsCount: false,
-            fetch: flow
+            fetch: flow,
+            delete: flow
         });
         this.cardsService = new CardsService();
 
@@ -24,6 +25,12 @@ class CardsStore {
     *add(card) {
         yield this.cardsService.post(card).then(addedCard => {
             this.cards.push(addedCard);
+        });
+    }
+
+    *delete(cardId) {
+        yield this.cardsService.delete(cardId).then(() => {
+            this.cards = this.cards.filter(c => c.id !== cardId);
         });
     }
 }

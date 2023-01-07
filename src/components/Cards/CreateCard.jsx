@@ -15,7 +15,12 @@ const CreateCard = () => {
     };
 
     return (
-        <Flex direction={'row'} alignItems={'end'} gap={'size-125'}>
+        <Flex
+            direction={'row'}
+            alignItems={'end'}
+            gap={'size-125'}
+            justifyContent={'center'}
+        >
             <TextField
                 onChange={setCardName}
                 value={cardName}

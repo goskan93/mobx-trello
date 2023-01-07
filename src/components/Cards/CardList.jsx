@@ -6,10 +6,16 @@ const CardList = () => {
     const { cardsStore } = useStores();
 
     return (
-        <section aria-label={'board'} className={'board'}>
-            {cardsStore.cards.map(card => (
-                <Card key={card.id} card={card} />
-            ))}
+        <section aria-label={'board'}>
+            <ul aria-label={'card list'} className={'board'} style={{}}>
+                {cardsStore.cards.map(card => (
+                    <Card
+                        key={card.id}
+                        card={card}
+                        onDelete={() => cardsStore.delete(card.id)}
+                    />
+                ))}
+            </ul>
         </section>
     );
 };
