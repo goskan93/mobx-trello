@@ -1,3 +1,4 @@
+import 'reset.css';
 import 'Layout.css';
 import CreateCard from 'components/Cards/CreateCard';
 import { observer } from 'mobx-react-lite';

@@ -1,7 +1,7 @@
 import { useStores } from 'store';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Flex, TextField, ActionButton } from '@adobe/react-spectrum';
+import { TextField, ActionButton } from '@adobe/react-spectrum';
 
 const CreateCard = () => {
     const [cardName, setCardName] = useState('');
@@ -15,12 +15,7 @@ const CreateCard = () => {
     };
 
     return (
-        <Flex
-            direction={'row'}
-            alignItems={'end'}
-            gap={'size-125'}
-            justifyContent={'center'}
-        >
+        <section className={'create-card'}>
             <TextField
                 onChange={setCardName}
                 value={cardName}
@@ -28,7 +23,7 @@ const CreateCard = () => {
                 isRequired
             />
             <ActionButton onPress={onAdd}>Add</ActionButton>
-        </Flex>
+        </section>
     );
 };
 

@@ -5,27 +5,21 @@ import CreateTask from 'components/Tasks/CreateTask';
 import TaskList from 'components/Tasks/TaskList';
 import DeleteOutline from '@spectrum-icons/workflow/DeleteOutline';
 import { ActionButton, Divider } from '@adobe/react-spectrum';
+import clsx from 'clsx';
 
 const Card = ({ card, onDelete }) => {
-    const { tasksStore } = useStores();
+    const { tasksStore, uiStore } = useStores();
     const { id, name } = card;
     const tasks = tasksStore.tasks.filter(t => t.cardId === id);
     return (
-        <li
-            style={{
-                margin: '16px',
-                padding: '10px',
-                border: '1px solid',
-                borderRadius: '4px',
-                boxShadow: `0px 0px 8px grey`
-            }}
-        >
+        <li className={clsx('card', uiStore.isMobile && 'card-mobile')}>
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    padding: '8px 0'
                 }}
             >
                 <h3>{name}</h3>

@@ -6,6 +6,7 @@ import { observer } from 'mobx-react-lite';
 
 const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
     let ref = useRef();
+
     let { dropProps, isDropTarget } = useDrop({
         ref,
         onDrop: async e => {
@@ -32,11 +33,8 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
             role={'list'}
             ref={ref}
             {...dropProps}
+            className={'task-list'}
             style={{
-                overflowY: 'auto',
-                maxHeight: '55vh',
-                minHeight: '55vh',
-                listStyleType: 'none',
                 padding: isDropTarget ? '3px' : '4px',
                 border: isDropTarget ? '1px dashed grey' : ''
             }}
