@@ -26,7 +26,7 @@ const CreateTask = ({ cardId }) => {
                 label='Add task'
                 isRequired
             />
-            <ActionButton onPress={onAdd} style={{ minWidth: 'auto' }}>
+            <ActionButton onPress={onAdd} UNSAFE_style={{ minWidth: 'auto' }}>
                 Add
             </ActionButton>
         </Flex>

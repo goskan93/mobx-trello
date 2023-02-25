@@ -16,11 +16,11 @@ const DropIndicator = ({ beforeTaskId, cardId }) => {
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
             if (draggedTask.cardId === cardId) {
-                console.log('moving inside card', beforeTaskId);
+                console.log('moving inside card - not implemented', beforeTaskId);
             } else {
                 // moving to ther card but place matters
                 console.log(
-                    'moving inside card nut place matters',
+                    'moving inside card nut place matters - not implemented',
                     beforeTaskId
                 );
             }

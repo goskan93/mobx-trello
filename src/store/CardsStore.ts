@@ -1,9 +1,14 @@
 import { observable, makeObservable, flow, flowResult } from 'mobx';
 import CardsService from 'services/CardsService';
 
+interface Card {
+    id: string;
+    name: string;
+}
+
 class CardsStore {
     cardsService;
-    cards = [];
+    cards: Card[] = [];
     maxCardsCount = 5;
     constructor() {
         makeObservable(this, {
@@ -22,13 +27,13 @@ class CardsStore {
         this.cards = yield this.cardsService.get();
     }
 
-    *add(card) {
+    *add(card: Card) {
         yield this.cardsService.post(card).then(addedCard => {
             this.cards.push(addedCard);
         });
     }
 
-    *delete(cardId) {
+    *delete(cardId: string) {
         yield this.cardsService.delete(cardId).then(() => {
             this.cards = this.cards.filter(c => c.id !== cardId);
         });

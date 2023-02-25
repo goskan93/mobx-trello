@@ -1,8 +1,13 @@
 import { action, observable, makeObservable, runInAction, toJS } from 'mobx';
 import TasksService from 'services/TasksService';
 
+interface Task {
+    id: string | number;
+    name: string;
+}
+
 class TasksStore {
-    tasks = [];
+    tasks: Task[] = [];
     tasksService;
 
     constructor() {
@@ -29,27 +34,27 @@ class TasksStore {
         ).then(() => console.log('tasks fetched'));
     };
 
-    add = task => {
+    add = (task: Task) => {
         this.tasksService.post(task).then(addedTask =>
-            runInAction(() => {
+            runInAction((): any => {
                 this.tasks.push(addedTask);
                 console.log('task added', addedTask);
             })
         );
     };
 
-    delete = taskId => {
+    delete = (taskId: string): void => {
         this.tasksService.delete(taskId).then(
-            runInAction(() => {
+            runInAction((): any => {
                 this.tasks = this.tasks.filter(task => task.id !== taskId);
                 console.log('task deleted', taskId);
             })
         );
     };
 
-    update = task => {
+    update = (task: Task) => {
         this.tasksService.patch(task).then(
-            runInAction(() => {
+            runInAction((): any => {
                 const oldTask = this.tasks.find(t => t.id === task.id);
                 const newTask = { ...toJS(oldTask), ...task };
                 this.tasks = this.tasks.map(t =>

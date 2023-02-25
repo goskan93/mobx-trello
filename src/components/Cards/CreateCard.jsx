@@ -8,10 +8,8 @@ const CreateCard = () => {
     const { cardsStore } = useStores();
 
     const onAdd = () => {
-        if (cardsStore.cards.length < cardsStore.maxCardsCount) {
-            cardsStore.add({ name: cardName });
-            setCardName('');
-        }
+        cardsStore.add({ name: cardName });
+        setCardName('');
     };
 
     return (
