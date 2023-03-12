@@ -9,12 +9,10 @@ interface Card {
 class CardsStore {
     cardsService;
     cards: Card[] = [];
-    maxCardsCount = 5;
     constructor() {
         makeObservable(this, {
             cards: observable,
             add: flow,
-            maxCardsCount: false,
             fetch: flow,
             delete: flow
         });
@@ -24,12 +22,14 @@ class CardsStore {
     }
 
     *fetch() {
+        console.log('invode card fetch');
         this.cards = yield this.cardsService.get();
     }
 
     *add(card: Card) {
-        yield this.cardsService.post(card).then(addedCard => {
-            this.cards.push(addedCard);
+        yield this.cardsService.post(card).then(addedCardId => {
+            console.log({ addedCardId });
+            this.cards.push({ ...card, id: addedCardId });
         });
     }
 

@@ -89,7 +89,7 @@ main {
 .drop-indicator {
     width: 100%;
     margin-left: 0;
-    height: 4px;
+    height: 6px;
     outline: none;
     background: transparent;
     border-radius: 5px;
@@ -100,5 +100,5 @@ main {
 }
 
 .drop-indicator.drop-target {
-    background: grey;
+    background: #ddd;
 }

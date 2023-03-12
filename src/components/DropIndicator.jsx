@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDrop } from 'react-aria';
-const DropIndicator = ({ beforeTaskId, cardId }) => {
+const DropIndicator = ({ index, cardId, onUpdateCard }) => {
     const ref = useRef(null);
 
     let { dropProps, isDropTarget } = useDrop({
         ref,
-        onDrop: async e => {
+        _onDrop: async e => {
             const draggedTasks = await Promise.all(
                 e.items
                     .filter(item => item.types.has('move-task'))
@@ -15,15 +15,20 @@ const DropIndicator = ({ beforeTaskId, cardId }) => {
                     )
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
-            if (draggedTask.cardId === cardId) {
-                console.log('moving inside card - not implemented', beforeTaskId);
-            } else {
-                // moving to ther card but place matters
-                console.log(
-                    'moving inside card nut place matters - not implemented',
-                    beforeTaskId
-                );
-            }
+            onUpdateCard(draggedTask.id, draggedTask.cardId, cardId, index);
+            console.log(
+                'moving task',
+                draggedTask.id,
+                draggedTask.cardId,
+                cardId,
+                index
+            );
+        },
+        get onDrop() {
+            return this._onDrop;
+        },
+        set onDrop(value) {
+            this._onDrop = value;
         }
     });
 
@@ -38,8 +43,9 @@ const DropIndicator = ({ beforeTaskId, cardId }) => {
 };
 
 DropIndicator.propTypes = {
-    beforeTaskId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    cardId: PropTypes.string
+    index: PropTypes.number,
+    cardId: PropTypes.string,
+    onUpdateCard: PropTypes.func
 };
 
 export default DropIndicator;

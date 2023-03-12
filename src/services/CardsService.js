@@ -1,22 +1,21 @@
 class CardsService {
+    url = 'http://localhost:3004/api/cards';
     get = async () => {
-        return fetch('http://localhost:3004/cards').then(response =>
-            response.json()
-        );
+        return fetch(this.url).then(response => response.json());
     };
     post = async card => {
-        return await fetch('http://localhost:3004/cards', {
+        return await fetch(this.url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(card)
-        }).then(response => response.json());
+        }).then(response => response.text());
     };
     delete = async cardId => {
-        return await fetch(`http://localhost:3004/cards/${cardId}`, {
+        return await fetch(`${this.url}/${cardId}`, {
             method: 'DELETE'
-        }).then(response => response.json());
+        });
     };
 }
 

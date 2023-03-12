@@ -34,7 +34,9 @@ const Card = ({ card, onDelete }) => {
                 cardId={id}
                 tasks={tasks}
                 onDelete={taskId => tasksStore.delete(taskId)}
-                onUpdateCard={(id, cardId) => tasksStore.update({ id, cardId })}
+                onUpdateCard={(taskId, fromCardId, toCardId, index) =>
+                    tasksStore.move({ fromCardId, toCardId, index, taskId })
+                }
             />
         </li>
     );

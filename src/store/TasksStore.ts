@@ -2,8 +2,16 @@ import { action, observable, makeObservable, runInAction, toJS } from 'mobx';
 import TasksService from 'services/TasksService';
 
 interface Task {
-    id: string | number;
+    id: string;
     name: string;
+    cardId: string;
+}
+
+interface MoveTask {
+    fromCardId: string;
+    toCardId: string;
+    taskId: string;
+    index: number;
 }
 
 class TasksStore {
@@ -18,7 +26,8 @@ class TasksStore {
                 add: action,
                 fetch: action,
                 delete: action,
-                update: action
+                update: action,
+                move: action
             },
             {
                 name: 'tasks store'
@@ -30,15 +39,17 @@ class TasksStore {
 
     fetch = () => {
         runInAction(
-            async () => (this.tasks = await this.tasksService.get())
+            async () =>
+                (this.tasks = (await this.tasksService.get()).sort(
+                    (a, b) => a.index - b.index
+                ))
         ).then(() => console.log('tasks fetched'));
     };
 
     add = (task: Task) => {
-        this.tasksService.post(task).then(addedTask =>
+        this.tasksService.post(task).then(newTask =>
             runInAction((): any => {
-                this.tasks.push(addedTask);
-                console.log('task added', addedTask);
+                this.tasks.push(newTask);
             })
         );
     };
@@ -63,6 +74,10 @@ class TasksStore {
                 console.log('task changed');
             })
         );
+    };
+
+    move = (moveContext: MoveTask) => {
+        this.tasksService.move(moveContext).then(() => this.fetch());
     };
 }
 

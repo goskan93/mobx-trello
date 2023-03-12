@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useDrag } from 'react-aria';
 import { observer } from 'mobx-react-lite';
 import DropIndicator from 'components/DropIndicator';
-const Task = ({ task, onDelete, cardId }) => {
+const Task = ({ task, onDelete, cardId, onUpdateCard, dropIndex }) => {
     const { dragProps, isDragging } = useDrag({
         getItems: () => {
             return [
@@ -18,7 +18,11 @@ const Task = ({ task, onDelete, cardId }) => {
 
     return (
         <>
-            <DropIndicator cardId={cardId} beforeTaskId={task.id} />
+            <DropIndicator
+                cardId={cardId}
+                index={Math.max(dropIndex, 0)}
+                onUpdateCard={onUpdateCard}
+            />
             <li
                 {...dragProps}
                 className={`task ${isDragging ? 'dragging' : ''}`}
@@ -34,11 +38,13 @@ const Task = ({ task, onDelete, cardId }) => {
 
 Task.propTypes = {
     task: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        id: PropTypes.string,
         name: PropTypes.string
     }),
     onDelete: PropTypes.func,
-    cardId: PropTypes.string
+    cardId: PropTypes.string,
+    onUpdateCard: PropTypes.func,
+    dropIndex: PropTypes.number
 };
 
 export default observer(Task);

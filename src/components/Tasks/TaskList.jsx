@@ -18,12 +18,10 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
                     )
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
-            if (draggedTask.cardId !== cardId) {
-                console.log(
-                    'moving between cards, place no matter, move to bottom'
-                );
-                onUpdateCard(draggedTask.id, cardId);
-            }
+            console.log(
+                'moving between cards, place no matter, move to bottom'
+            );
+            onUpdateCard(draggedTask.id, draggedTask.cardId, cardId, -1);
         }
     });
 
@@ -39,9 +37,10 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
                 border: isDropTarget ? '1px dashed grey' : ''
             }}
         >
-            {tasks.map(t => (
+            {tasks.map((t, i) => (
                 <Task
                     onDelete={() => onDelete(t.id)}
+                    dropIndex={i}
                     task={t}
                     key={t.id}
                     cardId={cardId}
