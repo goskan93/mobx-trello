@@ -1,14 +1,39 @@
 import 'reset.css';
 import 'Layout.css';
-import CreateCard from 'components/Cards/CreateCard';
 import { observer } from 'mobx-react-lite';
-import CardList from 'components/Cards/CardList';
 import Layout from 'components/Layout';
+import Dashboard from 'views/Dashboard';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Login from 'views/Login';
+import SignUp from 'views/SignUp';
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        Component: () => (
+            <div>
+                <p>Test</p>
+            </div>
+        )
+    },
+    {
+        path: '/signIn',
+        element: <SignUp />
+    },
+    {
+        path: '/login',
+        element: <Login />
+    },
+    {
+        path: '/dashboard',
+        element: <Dashboard />
+    }
+]);
+
 const App = () => {
     return (
         <Layout>
-            <CreateCard />
-            <CardList />
+            <RouterProvider router={router} />
         </Layout>
     );
 };

@@ -102,3 +102,13 @@ main {
 .drop-indicator.drop-target {
     background: #ddd;
 }
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+}
