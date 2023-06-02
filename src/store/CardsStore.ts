@@ -1,4 +1,4 @@
-import { observable, makeObservable, flow, flowResult } from 'mobx';
+import { observable, makeObservable, flow, runInAction, action } from 'mobx';
 import CardsService from 'services/CardsService';
 
 interface Card {
@@ -13,17 +13,23 @@ class CardsStore {
         makeObservable(this, {
             cards: observable,
             add: flow,
-            fetch: flow,
+            // fetch: flow,
+            fetch: action,
             delete: flow
         });
         this.cardsService = new CardsService();
 
-        flowResult(this.fetch());
+        //flowResult(this.fetch());
     }
 
-    *fetch() {
-        console.log('invode card fetch');
-        this.cards = yield this.cardsService.get();
+    // *fetch() {
+    //     console.log('invode card fetch');
+    //     this.cards = yield this.cardsService.get();
+    // }
+    fetch() {
+        runInAction(async () => {
+            this.cards = await this.cardsService.get();
+        }).then(() => console.log('card fetched'));
     }
 
     *add(card: Card) {

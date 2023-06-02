@@ -34,16 +34,16 @@ class TasksStore {
             }
         );
         this.tasksService = new TasksService();
-        this.fetch();
+        //this.fetch();
     }
 
     fetch = () => {
-        runInAction(
-            async () =>
-                (this.tasks = (await this.tasksService.get()).sort(
-                    (a, b) => a.index - b.index
-                ))
-        ).then(() => console.log('tasks fetched'));
+        runInAction(async () => {
+            const tasks = (await this.tasksService.get()).sort(
+                (a, b) => a.index - b.index
+            );
+            this.tasks = tasks;
+        }).then(() => console.log('tasks fetched'));
     };
 
     add = (task: Task) => {
