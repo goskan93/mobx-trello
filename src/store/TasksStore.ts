@@ -17,8 +17,10 @@ interface MoveTask {
 class TasksStore {
     tasks: Task[] = [];
     tasksService;
+    rootStore;
+    constructor(rootStore) {
+        console.log('TasksStore ', rootStore);
 
-    constructor() {
         makeObservable(
             this,
             {
@@ -34,6 +36,7 @@ class TasksStore {
             }
         );
         this.tasksService = new TasksService();
+        this.rootStore = rootStore;
         //this.fetch();
     }
 

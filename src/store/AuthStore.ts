@@ -7,20 +7,25 @@ interface AuthData {
 }
 
 class AuthStore {
-    authService;
-    token;
-    constructor() {
+    authService: AuthService;
+    token!: string;
+    rootStore;
+
+    constructor(rootStore) {
+        console.log('AuthStore ', rootStore);
         makeObservable(this, {
             login: action,
             signUp: action,
             token: observable
         });
         this.authService = new AuthService();
+        this.rootStore = rootStore;
     }
 
     async login(authData: AuthData) {
         return this.authService.login(authData).then(authData => {
             this.token = authData.access_token;
+            this.rootStore.cardsStore.setToken(this.token);
         });
     }
 

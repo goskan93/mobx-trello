@@ -9,16 +9,19 @@ interface Card {
 class CardsStore {
     cardsService;
     cards: Card[] = [];
-    constructor() {
+    rootStore;
+    constructor(rootStore) {
+        console.log('CardsStore ', rootStore);
         makeObservable(this, {
             cards: observable,
             add: flow,
             // fetch: flow,
             fetch: action,
-            delete: flow
+            delete: flow,
+            setToken: false
         });
         this.cardsService = new CardsService();
-
+        this.rootStore = rootStore;
         //flowResult(this.fetch());
     }
 
@@ -26,6 +29,11 @@ class CardsStore {
     //     console.log('invode card fetch');
     //     this.cards = yield this.cardsService.get();
     // }
+
+    setToken(token) {
+        this.cardsService.setToken(token);
+    }
+
     fetch() {
         runInAction(async () => {
             this.cards = await this.cardsService.get();
