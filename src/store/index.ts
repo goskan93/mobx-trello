@@ -4,10 +4,10 @@ import UIStore from 'store/UIStore';
 import AuthStore from 'store/AuthStore';
 
 class RootStore {
-    authStore;
-    tasksStore;
-    cardsStore;
-    uiStore;
+    authStore: AuthStore;
+    tasksStore: TasksStore;
+    cardsStore: CardsStore;
+    uiStore: UIStore;
     constructor() {
         this.authStore = new AuthStore(this);
         this.cardsStore = new CardsStore(this);
@@ -15,13 +15,13 @@ class RootStore {
         this.uiStore = new UIStore(this);
     }
 }
-const store = new RootStore();
+export const rootStore = new RootStore();
 
 const stores = {
-    tasksStore: store.tasksStore,
-    cardsStore: store.cardsStore,
-    uiStore: store.uiStore,
-    authStore: store.authStore
+    tasksStore: rootStore.tasksStore,
+    cardsStore: rootStore.cardsStore,
+    uiStore: rootStore.uiStore,
+    authStore: rootStore.authStore
 };
 
 export const useStores = () => stores;
