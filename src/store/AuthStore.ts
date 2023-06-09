@@ -10,13 +10,13 @@ class AuthStore {
     authService: AuthService;
     token!: string;
 
-    constructor(rootStore) {
+    constructor() {
         makeObservable(this, {
             login: action,
             signUp: action,
             token: observable
         });
-        this.authService = rootStore.authService;
+        this.authService = new AuthService();
     }
 
     async login(authData: AuthData) {

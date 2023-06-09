@@ -1,10 +1,7 @@
 import { makeAutoObservable, observable, computed } from 'mobx';
 
 class UIStore {
-    rootStore;
-    constructor(rootStore) {
-        console.log('UIStore ', rootStore);
-
+    constructor() {
         makeAutoObservable(this, {
             windowDimensions: observable.struct,
             isMobile: computed
@@ -15,7 +12,6 @@ class UIStore {
                 height: window.innerHeight
             };
         };
-        this.rootStore = rootStore;
     }
     windowDimensions = {
         width: window.innerWidth,

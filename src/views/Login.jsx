@@ -4,24 +4,23 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { authStore } = useStores();
+    const { authStore, userStore } = useStores();
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        console.log('gothere');
-        authStore
-            .login({
+        try {
+            await authStore.login({
                 username,
                 password
-            })
-            .then(() => {
-                navigate('/dashboard');
-            })
-            .catch(e => {
-                console.log('login error', e);
             });
+            const user = await userStore.get();
+            console.log({ user });
+            navigate(`/user/${user.id}/dashboard`);
+        } catch (e) {
+            console.log('login error', e);
+        }
     };
 
     return (
