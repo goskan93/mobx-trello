@@ -18,9 +18,6 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
                     )
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
-            console.log(
-                'moving between cards, place no matter, move to bottom'
-            );
             onUpdateCard(draggedTask.id, draggedTask.cardId, cardId, -1);
         }
     });
