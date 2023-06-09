@@ -1,16 +1,17 @@
 import { rootStore } from 'store';
 
+const url = userId => `http://localhost:3004/api/users/${userId}/cards`;
+
 class CardsService {
-    url = 'http://localhost:3004/api/cards';
     get = async () => {
-        return fetch(this.url, {
+        return fetch(url(rootStore.userStore.user.id), {
             headers: {
                 Authorization: `Bearer ${rootStore.authStore.token}`
             }
         }).then(response => response.json());
     };
     post = async card => {
-        return await fetch(this.url, {
+        return await fetch(url(rootStore.userStore.user.id), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,7 +21,7 @@ class CardsService {
         }).then(response => response.text());
     };
     delete = async cardId => {
-        return await fetch(`${this.url}/${cardId}`, {
+        return await fetch(`${url(rootStore.userStore.user.id)}/${cardId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${rootStore.authStore.token}`
