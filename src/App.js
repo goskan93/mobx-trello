@@ -6,6 +6,7 @@ import Dashboard from 'views/Dashboard';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from 'views/Login';
 import SignUp from 'views/SignUp';
+import Protected from 'views/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
     },
     {
         path: 'user/:userId/dashboard',
-        element: <Dashboard />
+        Component: () => (
+            <Protected>
+                <Dashboard />
+            </Protected>
+        )
     }
 ]);
 

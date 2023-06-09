@@ -1,16 +1,18 @@
 import { rootStore } from 'store';
 
-class TasksService {
-    url = 'http://localhost:3004/api/tasks';
+const url = userId => `http://localhost:3004/api/users/${userId}/tasks`;
 
+class TasksService {
     get = async () => {
-        return await fetch(this.url, {
-            Authorization: `Bearer ${rootStore.authStore.token}`
+        return await fetch(url(rootStore.userStore.user.id), {
+            headers: {
+                Authorization: `Bearer ${rootStore.authStore.token}`
+            }
         }).then(response => response.json());
     };
 
     post = async task => {
-        return await fetch(this.url, {
+        return await fetch(url(rootStore.userStore.user.id), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,14 +23,16 @@ class TasksService {
     };
 
     delete = async taskId => {
-        return await fetch(`${this.url}/${taskId}`, {
+        return await fetch(`${url(rootStore.userStore.user.id)}/${taskId}`, {
             method: 'DELETE',
-            Authorization: `Bearer ${rootStore.authStore.token}`
+            headers: {
+                Authorization: `Bearer ${rootStore.authStore.token}`
+            }
         });
     };
 
     patch = async task => {
-        return await fetch(`${this.url}/${task.id}`, {
+        return await fetch(`${url(rootStore.userStore.user.id)}/${task.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +43,7 @@ class TasksService {
     };
 
     move = async moveContext => {
-        return await fetch(`${this.url}/move`, {
+        return await fetch(`${url(rootStore.userStore.user.id)}/move`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

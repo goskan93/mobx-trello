@@ -16,7 +16,6 @@ const Login = () => {
                 password
             });
             const user = await userStore.get();
-            console.log({ user });
             navigate(`/user/${user.id}/dashboard`);
         } catch (e) {
             console.log('login error', e);

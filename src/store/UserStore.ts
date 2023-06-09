@@ -7,7 +7,7 @@ interface User {
 }
 
 class UserStore {
-    userService;
+    userService: UserService;
     user?: User;
     constructor() {
         makeObservable(this, {
@@ -19,7 +19,6 @@ class UserStore {
 
     async get() {
         const user = await this.userService.get();
-        console.log({ user });
         this.user = user;
         return user;
     }
