@@ -9,9 +9,7 @@ interface Card {
 class CardsStore {
     cardsService;
     cards: Card[] = [];
-    rootStore;
-    constructor(rootStore) {
-        console.log('CardsStore ', rootStore);
+    constructor() {
         makeObservable(this, {
             cards: observable,
             add: flow,
@@ -21,7 +19,6 @@ class CardsStore {
             setToken: false
         });
         this.cardsService = new CardsService();
-        this.rootStore = rootStore;
         //flowResult(this.fetch());
     }
 
