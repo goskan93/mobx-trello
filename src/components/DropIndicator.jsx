@@ -16,13 +16,6 @@ const DropIndicator = ({ index, cardId, onUpdateCard }) => {
             );
             const draggedTask = draggedTasks[0]; // supports only dragging one task
             onUpdateCard(draggedTask.id, draggedTask.cardId, cardId, index);
-            console.log(
-                'moving task',
-                draggedTask.id,
-                draggedTask.cardId,
-                cardId,
-                index
-            );
         },
         get onDrop() {
             return this._onDrop;

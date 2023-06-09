@@ -41,7 +41,7 @@ class TasksStore {
                 (a, b) => a.index - b.index
             );
             this.tasks = tasks;
-        }).then(() => console.log('tasks fetched'));
+        });
     };
 
     add = (task: Task) => {
@@ -56,7 +56,6 @@ class TasksStore {
         this.tasksService.delete(taskId).then(
             runInAction((): any => {
                 this.tasks = this.tasks.filter(task => task.id !== taskId);
-                console.log('task deleted', taskId);
             })
         );
     };
@@ -69,7 +68,6 @@ class TasksStore {
                 this.tasks = this.tasks.map(t =>
                     t.id === newTask.id ? newTask : t
                 );
-                console.log('task changed');
             })
         );
     };
