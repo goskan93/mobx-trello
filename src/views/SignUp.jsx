@@ -37,6 +37,10 @@ const SignUp = () => {
             <Button variant='primary' type='submit'>
                 Sign Up
             </Button>
+            <div style={{ textAlign: 'center' }}>
+                <p>Please consider that it is just a side project.</p>
+                <p>Do not use your personal data.</p>
+            </div>
         </form>
     );
 };

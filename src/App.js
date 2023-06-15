@@ -7,18 +7,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from 'views/Login';
 import SignUp from 'views/SignUp';
 import Protected from 'views/ProtectedRoute';
+import Index from 'views/Index';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        Component: () => (
-            <div>
-                <p>Test</p>
-            </div>
-        )
+        element: <Index />
     },
     {
-        path: '/signIn',
+        path: '/sign-in',
         element: <SignUp />
     },
     {

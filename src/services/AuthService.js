@@ -1,5 +1,5 @@
 class AuthService {
-    url = 'http://localhost:3004/api/auth';
+    url = `${process.env.REACT_APP_URI}/api/auth`;
     login = async authData => {
         return await fetch(`${this.url}/login`, {
             method: 'POST',

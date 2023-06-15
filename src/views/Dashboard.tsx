@@ -11,7 +11,7 @@ const Dashboard = () => {
     useEffect(() => {
         tasksStore.fetch();
         cardsStore.fetch();
-    });
+    }, []);
 
     return (
         <>

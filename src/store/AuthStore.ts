@@ -1,5 +1,6 @@
 import { makeObservable, action, observable } from 'mobx';
 import AuthService from 'services/AuthService';
+import { makePersistable } from 'mobx-persist-store';
 
 interface AuthData {
     username: string;
@@ -17,6 +18,11 @@ class AuthStore {
             token: observable
         });
         this.authService = new AuthService();
+        makePersistable(this, {
+            name: 'AuthStore',
+            properties: ['token'],
+            storage: window.localStorage // todo: use localForage
+        });
     }
 
     async login(authData: AuthData) {

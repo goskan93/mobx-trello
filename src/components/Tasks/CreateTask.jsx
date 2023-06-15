@@ -18,7 +18,8 @@ const CreateTask = ({ cardId }) => {
             direction={'row'}
             alignItems={'end'}
             justifySelf={'center'}
-            gap={'size-75'}
+            justifyContent={'space-around'}
+            gap={'size-40'}
         >
             <TextField
                 onChange={setTaskName}
