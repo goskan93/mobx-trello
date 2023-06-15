@@ -1,5 +1,6 @@
 import { observable, makeObservable, action } from 'mobx';
 import UserService from 'services/UserService';
+import { makePersistable } from 'mobx-persist-store';
 
 interface User {
     id: string;
@@ -15,6 +16,11 @@ class UserStore {
             get: action
         });
         this.userService = new UserService();
+        makePersistable(this, {
+            name: 'UserStore',
+            properties: ['user'],
+            storage: window.localStorage // todo: use localForage
+        });
     }
 
     async get() {

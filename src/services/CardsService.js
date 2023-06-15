@@ -1,6 +1,6 @@
 import { rootStore } from 'store';
 
-const url = userId => `http://localhost:3004/api/users/${userId}/cards`;
+const url = userId => `${process.env.REACT_APP_URI}/api/users/${userId}/cards`;
 
 class CardsService {
     get = async () => {
