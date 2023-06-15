@@ -8,7 +8,7 @@ const Index = () => {
             <div className='index-actions'>
                 <Link to={'login'}>Login</Link>
                 <p> or </p>
-                <Link to={'sign-in'}>Sign in</Link>
+                <Link to={'sign-up'}>Sign up</Link>
             </div>
         </div>
     );
