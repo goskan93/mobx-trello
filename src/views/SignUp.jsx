@@ -33,13 +33,21 @@ const SignUp = () => {
         <form className='login-form' onSubmit={onSubmit}>
             <TextField label='Username' id='username' />
             <TextField label='Password' id='password' type='password' />
-            <TextField label='Repeat Password' id='repeat-password' />
+            <TextField
+                label='Repeat Password'
+                id='repeat-password'
+                type='password'
+            />
             <Button variant='primary' type='submit'>
                 Sign Up
             </Button>
             <div style={{ textAlign: 'center' }}>
                 <p>Please consider that it is just a side project.</p>
                 <p>Do not use your personal data.</p>
+                <p>
+                    If you want to check how it works use credentials: test test
+                    :)
+                </p>
             </div>
         </form>
     );
