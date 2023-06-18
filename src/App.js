@@ -15,7 +15,7 @@ const router = [
         Component: Index
     },
     {
-        path: '/sign-in',
+        path: '/sign-up',
         Component: SignUp
     },
     {
