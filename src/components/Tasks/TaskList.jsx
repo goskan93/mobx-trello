@@ -30,7 +30,7 @@ const TaskList = ({ tasks, onDelete, cardId, onUpdateCard }) => {
             {...dropProps}
             className={'task-list'}
             style={{
-                padding: isDropTarget ? '3px' : '4px',
+                padding: isDropTarget ? '3px 0' : '4px 0',
                 border: isDropTarget ? '1px dashed grey' : ''
             }}
         >

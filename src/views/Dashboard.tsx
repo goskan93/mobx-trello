@@ -14,10 +14,10 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <>
+        <div className='dashboard'>
             <CreateCard />
             <CardList />
-        </>
+        </div>
     );
 };
 

@@ -13,13 +13,13 @@ const Layout = ({ children }) => {
     };
     return (
         <Provider theme={defaultTheme}>
-            <main>
+            <div className='container'>
                 <nav>
                     {authStore.isAuthenticated && (
                         <Link onPress={logout}>Log out</Link>
                     )}
                 </nav>
-                <section>{children}</section>
+                <main>{children}</main>
                 <footer>
                     <p style={{ fontSize: '0.5rem' }}>
                         If you have any suggestions, please add an issue{' '}
@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
                         </a>{' '}
                     </p>
                 </footer>
-            </main>
+            </div>
         </Provider>
     );
 };

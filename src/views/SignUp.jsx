@@ -1,6 +1,7 @@
-import { TextField, Button } from '@adobe/react-spectrum';
+import { TextField, Button, Link } from '@adobe/react-spectrum';
 import { useStores } from 'store';
 import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 const SignUp = () => {
     const { authStore } = useStores();
     const navigate = useNavigate();
@@ -45,8 +46,11 @@ const SignUp = () => {
                 <p>Please consider that it is just a side project.</p>
                 <p>Do not use your personal data.</p>
                 <p>
-                    If you want to check how it works use credentials: test test
-                    :)
+                    If you want to check how it works, go to{' '}
+                    <Link>
+                        <RouterLink to='/login'>login</RouterLink>
+                    </Link>{' '}
+                    page and use credentials: test test :)
                 </p>
             </div>
         </form>

@@ -1,17 +1,33 @@
-main {
-    padding: 0 16px;
-    box-sizing: border-box;
+.container {
     min-height: 100vh;
     scrollbar-gutter: stable;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 5% 90% 5%;
+}
+
+nav {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0 8px;
+}
+
+main {
+  min-height: 100%;
 }
 
 footer {
     width: 100%;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.dashboard {
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: 20% 80%;
 }
 
 .create-card {
@@ -43,28 +59,25 @@ footer {
     justify-content: flex-start;
     align-items: flex-start;
     flex-wrap: nowrap;
-    max-height: 83vh;
-    min-height: 83vh;
+    max-height: 100%;
+    min-height: 100%;
     list-style-type: none;
-    padding: 0
+    padding: 0;
+    max-width: 100vw;
 }
 
 .board-mobile {
     flex-direction: column;
     align-items: center;
-
 }
 
 .task-list {
-    max-height: 55vh;
     overflow-y: auto;
     list-style-type: none;
-    margin-top: 8px;
 }
 
 .task {
-    margin: 4px 0;
-    padding: 8px 12px;
+    padding: 8px;
     border: 1px solid;
     border-radius: 4px;
     display: flex;
@@ -93,9 +106,7 @@ footer {
     border-radius: 10px;
 }
 
-
 /* drop indicator*/
-
 .drop-indicator {
     width: 100%;
     margin-left: 0;
@@ -117,11 +128,11 @@ footer {
     display: flex;
     flex-direction: column;
     margin: auto;
-    gap:16px;
+    gap: 16px;
     align-items: center;
     justify-content: center;
     height: inherit;
-    min-height: 80vh;
+    min-height: 100%;
 }
 
 .index-page {
@@ -131,7 +142,7 @@ footer {
     gap: 4px;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    min-height: 100%;
     width: 100%;
 }
 
