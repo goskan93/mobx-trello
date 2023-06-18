@@ -7,10 +7,13 @@ const CardList = () => {
     const { cardsStore, uiStore } = useStores();
 
     return (
-        <section aria-label={'board'}>
+        <section aria-label={'board'} className='board'>
             <ul
                 aria-label={'card list'}
-                className={clsx('board', uiStore.isMobile && 'board-mobile')}
+                className={clsx(
+                    'card-list',
+                    uiStore.isMobile && 'card-list-mobile'
+                )}
             >
                 {cardsStore.cards.map(card => (
                     <Card
