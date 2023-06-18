@@ -4,6 +4,10 @@ import UIStore from 'store/UIStore';
 import AuthStore from 'store/AuthStore';
 import UserStore from './UserStore';
 
+export interface IDisposable {
+    reset(): void;
+}
+
 class RootStore {
     authStore: AuthStore;
     tasksStore: TasksStore;
@@ -28,6 +32,15 @@ const stores = {
     uiStore: rootStore.uiStore,
     authStore: rootStore.authStore,
     userStore: rootStore.userStore
+};
+
+export const clearStore = () => {
+    Object.keys(stores).forEach(s => {
+        const store: IDisposable = stores[s];
+        if ('reset' in store) {
+            store.reset();
+        }
+    });
 };
 
 export const useStores = () => stores;

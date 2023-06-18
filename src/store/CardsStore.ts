@@ -1,12 +1,13 @@
 import { observable, makeObservable, flow, runInAction, action } from 'mobx';
 import CardsService from 'services/CardsService';
+import { IDisposable } from 'store';
 
 interface Card {
     id: string;
     name: string;
 }
 
-class CardsStore {
+class CardsStore implements IDisposable {
     cardsService;
     cards: Card[] = [];
     constructor() {
@@ -15,13 +16,13 @@ class CardsStore {
             add: flow,
             fetch: action,
             delete: flow,
-            setToken: false
+            reset: action
         });
         this.cardsService = new CardsService();
     }
 
-    setToken(token) {
-        this.cardsService.setToken(token);
+    reset() {
+        this.cards = [];
     }
 
     fetch() {

@@ -1,5 +1,6 @@
 import { action, observable, makeObservable, runInAction, toJS } from 'mobx';
 import TasksService from 'services/TasksService';
+import { IDisposable } from 'store';
 
 interface Task {
     id: string;
@@ -14,7 +15,7 @@ interface MoveTask {
     index: number;
 }
 
-class TasksStore {
+class TasksStore implements IDisposable {
     tasks: Task[] = [];
     tasksService;
     constructor() {
@@ -26,13 +27,18 @@ class TasksStore {
                 fetch: action,
                 delete: action,
                 update: action,
-                move: action
+                move: action,
+                reset: action
             },
             {
                 name: 'tasks store'
             }
         );
         this.tasksService = new TasksService();
+    }
+
+    reset() {
+        this.tasks = [];
     }
 
     fetch = () => {

@@ -3,24 +3,24 @@ import 'Layout.css';
 import { observer } from 'mobx-react-lite';
 import Layout from 'components/Layout';
 import Dashboard from 'views/Dashboard';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from 'views/Login';
 import SignUp from 'views/SignUp';
 import Protected from 'views/ProtectedRoute';
 import Index from 'views/Index';
 
-const router = createBrowserRouter([
+const router = [
     {
         path: '/',
-        element: <Index />
+        Component: Index
     },
     {
         path: '/sign-up',
-        element: <SignUp />
+        Component: SignUp
     },
     {
         path: '/login',
-        element: <Login />
+        Component: Login
     },
     {
         path: 'user/:userId/dashboard',
@@ -30,13 +30,25 @@ const router = createBrowserRouter([
             </Protected>
         )
     }
-]);
+];
 
 const App = () => {
     return (
-        <Layout>
-            <RouterProvider router={router} />
-        </Layout>
+        <BrowserRouter>
+            <Layout>
+                <Routes>
+                    {router.map(({ path, Component }, index) => (
+                        <Route
+                            key={index}
+                            exact
+                            path={path}
+                            element={<Component />}
+                        />
+                    ))}
+                    {/* <Route path="*" element={<NotFound/>}/> TODO */}
+                </Routes>
+            </Layout>
+        </BrowserRouter>
     );
 };
 

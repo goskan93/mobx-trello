@@ -11,7 +11,6 @@ const CardList = () => {
             <ul
                 aria-label={'card list'}
                 className={clsx('board', uiStore.isMobile && 'board-mobile')}
-                style={{}}
             >
                 {cardsStore.cards.map(card => (
                     <Card
