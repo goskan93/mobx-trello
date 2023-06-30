@@ -22,8 +22,7 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-stately": "^3.20.0",
-    "web-vitals": "^2.1.4",
-    "@goskan93/trello-clone-contracts": "git+https://goskan93:${GITHUB_TOKEN}@github.com/goskan93/trello-clone-contracts.git"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,6 +60,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "@goskan93/trello-clone-contracts": "git+https://goskan93:${GITHUB_TOKEN}@github.com/goskan93/trello-clone-contracts.git"
   }
 }
