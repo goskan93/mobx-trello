@@ -4,7 +4,7 @@
   "private": true,
   "homepage": ".",
   "proxy": "http://localhost:3000",
-  "package-name": "git+https://goskan93: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@github.com/goskan93/trello-clone-contracts.git",
+  "package-name": "git+https://goskan93:{process.env.GITHIB_TOKEN}@github.com/goskan93/trello-clone-contracts.git",
   "dependencies": {
     "@adobe/react-spectrum": "^3.24.1",
     "@testing-library/jest-dom": "^5.16.5",
