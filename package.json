@@ -4,6 +4,9 @@
   "private": true,
   "homepage": ".",
   "proxy": "http://localhost:3000",
+  "engines": {
+    "node": "18.14.2"
+  },
   "dependencies": {
     "@adobe/react-spectrum": "^3.24.1",
     "@testing-library/jest-dom": "^5.16.5",
