@@ -1,4 +1,7 @@
-import { UserInput, AuthOutput } from '@goskan93/trello-clone-contracts';
+import {
+    UserInput,
+    AuthOutput
+} from '@goskan93/trello-clone-contracts/dist/index';
 
 class AuthService {
     url = `${process.env.REACT_APP_URI}/api/auth`;
