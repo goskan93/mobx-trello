@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["dom", "dom.iterable", "esnext", "ES2015"],
     "module": "esnext",
-    "target": "es2015",
+    "target": "ES5",
     "baseUrl": "src",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -11,12 +11,15 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "noEmit": true,
+    // "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "outDir": "./build",
+    "removeComments": true,
+    "rootDir": "./src"
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"] //default
 }
