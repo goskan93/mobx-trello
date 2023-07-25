@@ -1,15 +1,11 @@
 import { observable, makeObservable, flow, runInAction, action } from 'mobx';
 import CardsService from 'services/CardsService';
 import { IDisposable } from 'store';
-
-interface Card {
-    id: string;
-    name: string;
-}
+import { CardInput, CardOutput } from '@goskan93/trello-clone-contracts';
 
 class CardsStore implements IDisposable {
     cardsService;
-    cards: Card[] = [];
+    cards: CardOutput[] = [];
     constructor() {
         makeObservable(this, {
             cards: observable,
@@ -31,7 +27,7 @@ class CardsStore implements IDisposable {
         });
     }
 
-    *add(card: Card) {
+    *add(card: CardInput) {
         yield this.cardsService.post(card).then(addedCardId => {
             this.cards.push({ ...card, id: addedCardId });
         });

@@ -2,11 +2,7 @@ import { makeObservable, action, observable, computed } from 'mobx';
 import AuthService from 'services/AuthService';
 import { makePersistable } from 'mobx-persist-store';
 import { IDisposable } from 'store';
-
-interface AuthData {
-    username: string;
-    password: string;
-}
+import { UserInput } from '@goskan93/trello-clone-contracts';
 
 class AuthStore implements IDisposable {
     authService: AuthService;
@@ -32,14 +28,13 @@ class AuthStore implements IDisposable {
         return !!this.token;
     }
 
-    async login(authData: AuthData) {
+    async login(authData: UserInput) {
         return this.authService.login(authData).then(authData => {
-            console.log({ authData });
             this.token = authData.access_token;
         });
     }
 
-    async signUp(authData: AuthData) {
+    async signUp(authData: UserInput) {
         return await this.authService.signUp(authData);
     }
 

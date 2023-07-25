@@ -1,22 +1,14 @@
 import { action, observable, makeObservable, runInAction, toJS } from 'mobx';
 import TasksService from 'services/TasksService';
 import { IDisposable } from 'store';
-
-interface Task {
-    id: string;
-    name: string;
-    cardId: string;
-}
-
-interface MoveTask {
-    fromCardId: string;
-    toCardId: string;
-    taskId: string;
-    index: number;
-}
+import {
+    TaskInput,
+    TaskOutput,
+    MoveTask
+} from '@goskan93/trello-clone-contracts';
 
 class TasksStore implements IDisposable {
-    tasks: Task[] = [];
+    tasks: TaskOutput[] = [];
     tasksService;
     constructor() {
         makeObservable(
@@ -50,7 +42,7 @@ class TasksStore implements IDisposable {
         });
     };
 
-    add = (task: Task) => {
+    add = (task: TaskInput) => {
         this.tasksService.post(task).then(newTask =>
             runInAction((): any => {
                 this.tasks.push(newTask);
@@ -66,7 +58,8 @@ class TasksStore implements IDisposable {
         );
     };
 
-    update = (task: Task) => {
+    update = task => {
+        //not used
         this.tasksService.patch(task).then(
             runInAction((): any => {
                 const oldTask = this.tasks.find(t => t.id === task.id);

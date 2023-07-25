@@ -2,15 +2,11 @@ import { observable, makeObservable, action } from 'mobx';
 import UserService from 'services/UserService';
 import { makePersistable } from 'mobx-persist-store';
 import { IDisposable } from 'store';
-
-interface User {
-    id: string;
-    username: string;
-}
+import { UserOutput } from '@goskan93/trello-clone-contracts';
 
 class UserStore implements IDisposable {
     userService: UserService;
-    user?: User;
+    user?: UserOutput;
     constructor() {
         makeObservable(this, {
             user: observable,
