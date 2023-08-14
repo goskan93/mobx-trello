@@ -34,7 +34,6 @@ class AuthStore implements IDisposable {
 
     async login(authData: AuthData) {
         return this.authService.login(authData).then(authData => {
-            console.log({ authData });
             this.token = authData.access_token;
         });
     }

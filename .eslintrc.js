@@ -10,7 +10,8 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
         'plugin:prettier/recommended',
-        'plugin:@typescript-eslint/recommended'
+        'plugin:@typescript-eslint/recommended',
+        'prettier'
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -43,6 +44,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'off',
         'prettier/prettier': 'warn',
-        '@typescript-eslint/no-explicit-any': 'off'
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off'
     }
 };

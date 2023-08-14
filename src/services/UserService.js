@@ -1,14 +1,7 @@
-import { rootStore } from 'store';
+import axios from 'axiosConfig';
 
 class UserService {
-    url = `${process.env.REACT_APP_URI}/api/users`;
-    get = async () => {
-        return fetch(this.url, {
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        }).then(response => response.json());
-    };
+    get = () => axios.get(`/api/users`).then(response => response.data);
 }
 
 export default UserService;
