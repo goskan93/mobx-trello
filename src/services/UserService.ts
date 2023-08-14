@@ -1,15 +1,9 @@
-import { rootStore } from 'store';
+import axios from 'axiosConfig';
 import { UserOutput } from '@goskan93/trello-clone-contracts';
 
 class UserService {
-    url = `${process.env.REACT_APP_URI}/api/users`;
-    get = async (): Promise<UserOutput> => {
-        return fetch(this.url, {
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        }).then(response => response.json());
-    };
+    get = (): UserOutput =>
+        axios.get(`/api/users`).then(response => response.data);
 }
 
 export default UserService;

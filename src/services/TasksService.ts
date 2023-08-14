@@ -1,63 +1,35 @@
 import { rootStore } from 'store';
+import axios from 'axiosConfig';
 import {
     TaskInput,
     TaskOutput,
     MoveTask
 } from '@goskan93/trello-clone-contracts';
 
-const url = userId => `${process.env.REACT_APP_URI}/api/users/${userId}/tasks`;
-
 class TasksService {
-    get = async (): Promise<TaskOutput> => {
-        return await fetch(url(rootStore.userStore.user?.id), {
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        }).then(response => response.json());
-    };
+    url = userId => `/api/users/${userId}/tasks`;
+    get = (): Promise<TaskOutput[]> =>
+        axios
+            .get(this.url(rootStore.userStore.user.id))
+            .then(response => response.data);
 
-    post = async (task: TaskInput): Promise<TaskOutput> => {
-        return await fetch(url(rootStore.userStore.user?.id), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(task)
-        }).then(response => response.json());
-    };
+    post = (task: TaskInput) =>
+        axios
+            .post(this.url(rootStore.userStore.user.id), task)
+            .then(response => response.data);
 
-    delete = async (taskId: string) => {
-        return await fetch(`${url(rootStore.userStore.user?.id)}/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        });
-    };
+    delete = taskId =>
+        axios.delete(`${this.url(rootStore.userStore.user.id)}/${taskId}`);
 
-    patch = async task => {
-        //not used
-        return await fetch(`${url(rootStore.userStore.user?.id)}/${task.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(task)
-        }).then(response => response.json());
-    };
-
-    move = async (moveContext: MoveTask) => {
-        return await fetch(`${url(rootStore.userStore.user?.id)}/move`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(moveContext)
-        });
-    };
+    patch = task =>
+        axios
+            .patch(`${this.url(rootStore.userStore.user.id)}/${task.id}`, task)
+            .then(response => response.data);
+    move = (moveContext: MoveTask) =>
+        axios.patch(
+            `${this.url(rootStore.userStore.user.id)}/move`,
+            moveContext
+        );
 }
 
 export default TasksService;

@@ -1,27 +1,17 @@
+import axios from 'axiosConfig';
 import { UserInput, AuthOutput } from '@goskan93/trello-clone-contracts';
 
 class AuthService {
-    url = `${process.env.REACT_APP_URI}/api/auth`;
-    login = async (authData: UserInput): Promise<AuthOutput> => {
-        return await fetch(`${this.url}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(authData)
-        }).then(response => response.json());
-    };
-    signUp = async (authData: UserInput) => {
-        return await fetch(`${this.url}/sign-up`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(authData)
-        })
-            .then(response => response.text())
+    url = `/api/auth`;
+    login = (authData: UserInput) =>
+        axios
+            .post(this.url + '/login', authData)
+            .then(response => response.data);
+    signUp = (authData: UserInput): Promise<AuthOutput> =>
+        axios
+            .post(this.url + '/sign-up', authData)
+            .then(response => response.data)
             .catch(e => console.log('server errror ', e));
-    };
 }
 
 export default AuthService;
