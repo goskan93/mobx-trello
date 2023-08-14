@@ -7,16 +7,16 @@ const url = userId => `/api/users/${userId}/cards`;
 class CardsService {
     get = (): Promise<CardOutput[]> =>
         axios
-            .get(url(rootStore.userStore.user.id))
+            .get(url(rootStore.userStore.user?.id))
             .then(response => response.data);
 
     post = (card: CardInput): Promise<string> =>
         axios
-            .post(url(rootStore.userStore.user.id), card)
+            .post(url(rootStore.userStore.user?.id), card)
             .then(response => response.data);
 
     delete = (cardId: string) =>
-        axios.delete(`${url(rootStore.userStore.user.id)}/${cardId}`);
+        axios.delete(`${url(rootStore.userStore.user?.id)}/${cardId}`);
 }
 
 export default CardsService;
