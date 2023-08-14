@@ -7,6 +7,7 @@ class AuthService {
         axios
             .post(this.url + '/login', authData)
             .then(response => response.data);
+
     signUp = (authData: UserInput): Promise<AuthOutput> =>
         axios
             .post(this.url + '/sign-up', authData)
