@@ -1,26 +1,18 @@
 import { rootStore } from 'store';
+import axios from 'axiosConfig';
 
-const url = userId => `${process.env.REACT_APP_URI}/api/users/${userId}/tasks`;
+const url = userId => `/api/users/${userId}/tasks`;
 
 class TasksService {
-    get = async () => {
-        return await fetch(url(rootStore.userStore.user.id), {
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        }).then(response => response.json());
-    };
+    get = () =>
+        axios
+            .get(url(rootStore.userStore.user.id))
+            .then(response => response.data);
 
-    post = async task => {
-        return await fetch(url(rootStore.userStore.user.id), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(task)
-        }).then(response => response.json());
-    };
+    post = async task =>
+        axios
+            .post(url(rootStore.userStore.user.id), task)
+            .then(response => response.data);
 
     delete = async taskId => {
         return await fetch(`${url(rootStore.userStore.user.id)}/${taskId}`, {
