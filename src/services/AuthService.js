@@ -1,25 +1,16 @@
+import axios from 'axiosConfig';
+
 class AuthService {
-    url = `${process.env.REACT_APP_URI}/api/auth`;
-    login = async authData => {
-        return await fetch(`${this.url}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(authData)
-        }).then(response => response.json());
-    };
-    signUp = async authData => {
-        return await fetch(`${this.url}/sign-up`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(authData)
-        })
-            .then(response => response.text())
+    url = `/api/auth`;
+    login = authData =>
+        axios
+            .post(this.url + '/login', authData)
+            .then(response => response.data);
+    signUp = authData =>
+        axios
+            .post(this.url + '/sign-up', authData)
+            .then(response => response.data)
             .catch(e => console.log('server errror ', e));
-    };
 }
 
 export default AuthService;

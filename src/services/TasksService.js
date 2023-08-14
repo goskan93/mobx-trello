@@ -9,41 +9,20 @@ class TasksService {
             .get(url(rootStore.userStore.user.id))
             .then(response => response.data);
 
-    post = async task =>
+    post = task =>
         axios
             .post(url(rootStore.userStore.user.id), task)
             .then(response => response.data);
 
-    delete = async taskId => {
-        return await fetch(`${url(rootStore.userStore.user.id)}/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${rootStore.authStore.token}`
-            }
-        });
-    };
+    delete = taskId =>
+        axios.delete(`${url(rootStore.userStore.user.id)}/${taskId}`);
 
-    patch = async task => {
-        return await fetch(`${url(rootStore.userStore.user.id)}/${task.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(task)
-        }).then(response => response.json());
-    };
-
-    move = async moveContext => {
-        return await fetch(`${url(rootStore.userStore.user.id)}/move`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${rootStore.authStore.token}`
-            },
-            body: JSON.stringify(moveContext)
-        });
-    };
+    patch = async task =>
+        axios
+            .patch(`${url(rootStore.userStore.user.id)}/${task.id}`, task)
+            .then(response => response.data);
+    move = async moveContext =>
+        axios.patch(`${url(rootStore.userStore.user.id)}/move`, moveContext);
 }
 
 export default TasksService;
